@@ -44,6 +44,10 @@ void inputToExpression(vector<string> &expression, string input)
 }
 
 //MiddleExpression to PostfixExpression
+//	* / ( : push them to stack directly
+//  + -   : pop stack untile the stack is zero or meet (
+//  )     : pop stack untile meet (
+//  else  : output to vector res
 void middleToPost(vector<string> &expression)
 {
     stack<string> opStack;
@@ -87,6 +91,11 @@ void middleToPost(vector<string> &expression)
 }
 
 //Calculate the result through PostfixExpression exp
+//    operator : pop the top 2 value and do the operation with this operator
+//    value    : push the value to valStack
+//    result   : after loop the vector, the result will be stored in the top of valStack
+//               Pay attention, we don't check the legacy of the input expression, so
+//               here we believe the expression is legal in default
 double calculateFromPosixexp(vector<string> &exp)
 {
     stack<double> valStack;
