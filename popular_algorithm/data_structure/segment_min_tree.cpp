@@ -31,7 +31,7 @@ using namespace std;
 
 
 /*
- * se, ss ---> The begin index and end index of st
+ * se, ss ---> The begin index and end index of array at st[sid]
  *  l, r  ---> The begin idnex and end index of v
  *    vid ---> The index of v[]
  *    sid ---> The index of st[]
@@ -81,13 +81,10 @@ public:
     void update(int v[], int ss, int se, int sid, int vid, int val)
     {
 		//If wen pass the diff here, than we dopn
-        if(0 == sid) {
-			for(int i=ss; i<se; i++) {
-				if(v
-			}
-        }
         if(ss<=vid && se>=vid) {
-            st[sid] += val;
+            v[vid] = val;
+			if(val < st[sid])
+				st[sid] = val;
         } 
         if(ss < se) {
             int mid = (se + ss) / 2;
@@ -97,15 +94,14 @@ public:
     }
 
     //getSum function.
-    int getRangeSum(int ss, int se, int l, int r, int id)
+    int getRangeMin(int ss, int se, int l, int r, int sid)
     {
         if(l>se || r<ss)
-            return 0;
-        else if(l<=ss && r>=se)
-            return st[id];
+            return 100;
+        else if(ss<=l && r<=se)
+            return st[sid];
         int mid = (ss+se)/2;
-        return getRangeSum(ss, mid, l, r, 2*id+1)+\
-             getRangeSum(mid+1, se, l, r, 2*id+2);
+        return min(getRangeMin(ss, mid, l, r, 2*sid+1), getRangeMin(mid+1, se, l, r, 2*sid+2));
 
     } 
 
@@ -128,10 +124,6 @@ int main()
 
     SegmentTree s(v, n-1);
     s.printSt();
-    cout << s.getRangeSum(0, n-1, 0, n-1, 0) << endl;
-    s.update(v, 0, n-1, 0, 4, 12);
-    s.printSt();
-    cout << s.getRangeSum(0, n-1, 0, n-1, 0) << endl;
-
+	cout << s.getRangeMin(0, n-1, 0, 2, 0) << endl;
     return 0;
 }
