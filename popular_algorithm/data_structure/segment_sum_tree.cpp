@@ -61,17 +61,17 @@ public:
     }
 
     //We build the segmentTree recursively.
-    void buildSegmentTree(int v[], int l, int r, int *st, int id)
+    void buildSegmentTree(int v[], int l, int r, int *st, int sid)
     {
         int sum = 0;
         for(int i=l; i<=r; i++) {
             sum = sum + v[i];
         }    
-        st[id] = sum;
+        st[sid] = sum;
         int mid = (l+r) / 2;
         if(r > l) {
-            buildSegmentTree(v, l, mid, st, 2*id+1);
-            buildSegmentTree(v, mid+1, r, st, 2*id+2);
+            buildSegmentTree(v, l, mid, st, 2*sid+1);
+            buildSegmentTree(v, mid+1, r, st, 2*sid+2);
         }
     }
 
@@ -89,8 +89,8 @@ public:
         } 
         if(ss < se) {
             int mid = (se + ss) / 2;
-            update(v, se, mid, sid*2+1, vid, val);
-            update(v, mid+1, ss, sid*2+2, vid, val);
+            update(v, ss, mid, sid*2+1, vid, val);
+            update(v, mid+1, se, sid*2+2, vid, val);
         }
     }
 
@@ -111,7 +111,7 @@ public:
     {
         //There are n element of v, so the height of vector tree is ceil(log2(n)), so the stLen is at most pow(2, ceil(log2(n)));
         int t = ceil(log2(n));
-        stLen = (int)pow(2, t);
+        stLen = (int)pow(2, t) + 1;
         st = new int[stLen];
         buildSegmentTree(v, 0, n, st, 0);
     } 
@@ -125,11 +125,17 @@ int main()
     int n = sizeof(v) / sizeof(v[0]);
 
     SegmentTree s(v, n-1);
+    cout << "printSt:" << endl;
     s.printSt();
-    cout << s.getRangeSum(0, n-1, 0, n-1, 0) << endl;
-    s.update(v, 0, n-1, 0, 4, 12);
+    cout << "printV:" << endl;
+    s.printV(v, n);
+    cout << s.getRangeSum(0, n-1, 1, 1, 0) << endl;
+    s.update(v, 0, n-1, 0, 1, 10);
+    cout << "printSt:" << endl;
     s.printSt();
-    cout << s.getRangeSum(0, n-1, 0, n-1, 0) << endl;
+    cout << "printV:" << endl;
+    s.printV(v, n);
+    cout << s.getRangeSum(0, n-1, 1, 1, 0) << endl;
 
     return 0;
 }
