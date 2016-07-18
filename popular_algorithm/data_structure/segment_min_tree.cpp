@@ -55,7 +55,7 @@ public:
     void printV(int v[], int n)
     {
         for(int i=0; i<n; i++) {
-            cout << v[i] << " ";
+            cout << i<<":"<<v[i] << "   ";
         }
         cout << endl;
     }
@@ -94,14 +94,17 @@ public:
     }
 
     //getSum function.
-    int getRangeMin(int ss, int se, int l, int r, int sid)
+    int getRangeMin(int v[], int ss, int se, int l, int r, int sid)
     {
         if(l>se || r<ss)
             return 100;
-        else if(ss<=l && r<=se)
+        if(l == r)
+            return v[l];
+        //if l<=ss and r>=se, this means the minumum of [ss,se] is the minumum of [l, r]. So return it
+        else if(l<=ss && r>=se)
             return st[sid];
         int mid = (ss+se)/2;
-        return min(getRangeMin(ss, mid, l, r, 2*sid+1), getRangeMin(mid+1, se, l, r, 2*sid+2));
+        return min(getRangeMin(v, ss, mid, l, r, 2*sid+1), getRangeMin(v, mid+1, se, l, r, 2*sid+2));
 
     } 
 
@@ -124,6 +127,11 @@ int main()
 
     SegmentTree s(v, n-1);
     s.printSt();
-	cout << s.getRangeMin(0, n-1, 0, 2, 0) << endl;
+    s.printV(v, n);
+	cout << s.getRangeMin(v, 0, n-1, 3, 7, 0) << endl;
+    s.update(v, 0, n-1, 0, 4, 1);
+    s.printSt();
+    s.printV(v, n);
+	cout << s.getRangeMin(v, 0, n-1, 3, 7, 0) << endl;
     return 0;
 }

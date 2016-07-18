@@ -114,7 +114,7 @@ public:
     {
         //There are n element of v, so the height of vector tree is ceil(log2(n)), so the stLen is at most pow(2, ceil(log2(n)));
         int t = ceil(log2(n));
-        stLen = (int)pow(2, t) + 1;
+        stLen = (int)pow(2, t) ;
         st = new int[stLen];
         buildSegmentTree(v, 0, n, st, 0);
     } 
