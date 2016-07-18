@@ -55,7 +55,7 @@ public:
     void printV(int v[], int n)
     {
         for(int i=0; i<n; i++) {
-            cout << v[i] << " ";
+            cout << i<<":"<<v[i] << " ";
         }
         cout << endl;
     }
@@ -95,15 +95,18 @@ public:
     }
 
     //getSum function.
-    int getRangeSum(int ss, int se, int l, int r, int id)
+    int getRangeSum(int v[], int ss, int se, int l, int r, int id)
     {
         if(l>se || r<ss)
             return 0;
+        //if l==r, than return the v[l] directly.
+        if(l == r)
+            return v[l];
         else if(l<=ss && r>=se)
             return st[id];
         int mid = (ss+se)/2;
-        return getRangeSum(ss, mid, l, r, 2*id+1)+\
-             getRangeSum(mid+1, se, l, r, 2*id+2);
+        return getRangeSum(v, ss, mid, l, r, 2*id+1)+\
+             getRangeSum(v, mid+1, se, l, r, 2*id+2);
 
     } 
 
@@ -129,13 +132,13 @@ int main()
     s.printSt();
     cout << "printV:" << endl;
     s.printV(v, n);
-    cout << s.getRangeSum(0, n-1, 1, 1, 0) << endl;
-    s.update(v, 0, n-1, 0, 1, 10);
+    cout << s.getRangeSum(v, 0, n-1, 4, 7, 0) << endl;
+    s.update(v, 0, n-1, 0, 6, 10);
     cout << "printSt:" << endl;
     s.printSt();
     cout << "printV:" << endl;
     s.printV(v, n);
-    cout << s.getRangeSum(0, n-1, 1, 1, 0) << endl;
+    cout << s.getRangeSum(v, 0, n-1, 4, 7, 0) << endl;
 
     return 0;
 }
