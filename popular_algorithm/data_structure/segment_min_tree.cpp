@@ -1,27 +1,9 @@
 /*
  * Important data_structure!!!
  *
- *  Problem:
- *      We have an array arr[0 . . . n-1]. 
- *      We should be able to1 Find the sum of elements from index l to r where 0 <= l <= r <= n-12 Change value of a specified element of the array to a new value x. 
- *      We need to do arr[i] = x where 0 <= i <= n-1.
+ *  This problem is extension of segment_sum_tree. And we change buildSegmentTree, update and getRangeMin to fit the problem:
+ *      Find the minimum in a given block of a array.
  *
- *  How to:
- *  Solution1:
- *      getSum by loop the array. set value directly with index. The update time is : O(1), the getSum time is : O(n);
- *      (attention: Though this can be implemented quickly, but it's not suit for problem with many getSum operations
- *
- *  Solution2:
- *      create another array sumVec to store the sum from start to i at the ith index in the array. The update time is : O(n)(One need update the whole sumVec), the getSum time is : O(1)
- *      (attention: It's not suit for problem with many update operations)
- *  
- *  Is there a method that the update and getSum has the near time complexity?
- *
- *  !!!Solution3:
- *      We use a data_structure called segment_tree to store data. And it's a complete binary tree which can be implemented by array.
- *      You can refer to segment_tree.png to make a big picture of segment_tree.
- *      Because of the feature of complete binary tree, the left leaf node's index is 2*index+1, and the right one's index is 2*index+2;
- * 
  * */
 
 #include <iostream>
