@@ -21,7 +21,27 @@ using namespace std;
 class Solution1 {
 public:
     int trap(vector<int>& height) {
- 		
+		int len = height.size();
+		if(len <= 2)
+			return 0;
+		if(3 == len) {
+			if(height[0]>height[1] && height[2]>height[1])
+				return min(height[0], height[2])-height[1];
+		}
+		int l, r, res;
+		l=1; r=len-2; res=0;
+		while(l < r) {
+			if(height[l-1] < height[r+1]) {
+				if(height[l] > height[l-1])
+					res = res + height[l]-height[l-1];
+				l++;	
+			} else {
+				if(height[r] > height[r+1])
+					res = res + height[r] - height[r+1];
+				r--;
+			}
+		}		
+		return res;
     }
 };
 
@@ -77,6 +97,6 @@ int main()
 	h.push_back(2);
 	h.push_back(1);
 
-	Solution2 s;
+	Solution1 s;
 	cout << s.trap(h) << endl;
 }
