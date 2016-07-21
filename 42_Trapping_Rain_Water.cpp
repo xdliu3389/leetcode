@@ -1,9 +1,22 @@
 /*
+ *  Good problem. Key-word: Left-Right Pointer
+ *
+ *
 	Problem:
 	Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap afte    r raining.
 	For example, 
 	Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
 	See 42.png
+
+	Solution1:
+    We set two pointer l and r, set them to 1 and len-2 at first. We set lm and rm as the max value of left to index l and right to index r.So we set them height[0] and height[len-1] at first.
+    Than we have follow moving rule:
+    1.If height[l-1]<height[r+1], than we can confirm the container of index l, because the container is:lm-height[l](assume lm is bigger than height[l])
+    2.If height[l-1]<height[r+1], than we can confirm the container of index r,.....
+    3.If 1, than we compute the container and sum it to the result, and move l to right(l++);
+    4.If 2, than we compute the container and sum it to the result, and move r to left(r--);
+    5.Loop 1,2,3,4 until l==r.
+
 
 	Solution2:
 	Let's take look at ith node. And we can see that, the trp of ith node is min(maxLeftNodesHeight, maxRightNodesHeight)-height, of course the
@@ -28,16 +41,22 @@ public:
 			if(height[0]>height[1] && height[2]>height[1])
 				return min(height[0], height[2])-height[1];
 		}
-		int l, r, res;
+		int l, r, lm, rm, res;
+        lm = height[0];
+        rm = height[len-1];
 		l=1; r=len-2; res=0;
-		while(l < r) {
+		while(l <= r) {
 			if(height[l-1] < height[r+1]) {
-				if(height[l] > height[l-1])
-					res = res + height[l]-height[l-1];
+				if(lm > height[l])
+					res = res + lm - height[l];
+                else
+                    lm = height[l];
 				l++;	
 			} else {
-				if(height[r] > height[r+1])
-					res = res + height[r] - height[r+1];
+				if(rm > height[r])
+					res = res + rm - height[r];
+                else
+                    rm = height[r];
 				r--;
 			}
 		}		
