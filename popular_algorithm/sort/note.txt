@@ -1,0 +1,2 @@
+The begin and end index in these sort is really hard to remember.
+But remeber: quick_sort merge_sort is from 0 to n-1(not n!!!!)

@@ -1,3 +1,9 @@
+/*
+	Best:    
+	Worst: 
+	Average:
+*/
+
 #include <iostream>
 #include <vector>
 
@@ -24,7 +30,7 @@ void heap_sort::heap_adjust(vector<int> &v, int index, int heap_size)
     int im, l, r;
     im = index;
     l = 2*index + 1;
-    r = 2*(index+1);
+    r = 2*index + 2;
     if(l < heap_size && v[index]<v[l])
         im = l;
     if(r < heap_size && v[im]<v[r])

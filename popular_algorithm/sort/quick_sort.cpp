@@ -9,6 +9,12 @@
 		The program seems doesn't work for the array whos len is less than 4. And i don't do the error check to the array.
 		I think when the len of array is less than 10000, we can use some other sort algorithm which is easy implemented such as 
 		bubble sort, choose sort.
+
+	Best:    O(nlogn)
+	Worst:   O(n^2)
+	Average: O(nlogn)
+	Memory:  O(1)
+	Stack:   O(logn)
 */
 
 #include <iostream>
